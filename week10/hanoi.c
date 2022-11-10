@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+// Helper function to print message
 void move(int m, char from, char to) {
   printf( "Move disk %d from %c to %c. \n", m, from, to);
 }
@@ -22,5 +23,6 @@ int main () {
   scanf ("%d", &n);
   // Move n disks from A to C, using B.
   hanoi (n, 'A', 'C', 'B');
+
   return 0;
 }
