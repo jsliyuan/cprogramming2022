@@ -15,12 +15,12 @@ void generate_permutations(int n, int i, int* list, int* chosen) {
   }
 
   for (int val = 0; val < n; val ++) {
-  	if (chosen[val] == 0) {
-  	  list[i] = val;
-  	  chosen[val] = 1;
-  	  generate_permutations(n, i + 1, list, chosen);
-  	  chosen[val] = 0;
-  	}
+    if (chosen[val] == 0) {
+      list[i] = val;
+      chosen[val] = 1;
+      generate_permutations(n, i + 1, list, chosen);
+      chosen[val] = 0;
+    }
   }
 }
 
