@@ -14,7 +14,6 @@ int is_prime(int n) {
   return 1;
 }
 
-
 int main() {
   int n, x, y, m, count=0;
   printf("Enter an even number (>= 6):");
