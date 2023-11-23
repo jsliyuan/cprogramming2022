@@ -72,6 +72,24 @@ void TestCreateMatrixLargeDimension() {
   cout << __func__ << " test passed\n";
 }
 
+void TestMatricesEqual2by3() {
+  int A_entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type A = create_matrix(2, 3, A_entries);
+  int B_entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type B = create_matrix(2, 3, B_entries);
+  assert(matrices_equal(A, B));
+  cout << __func__ << " test passed\n";
+}
+
+void TestMatricesEqualDimensionNotMatch() {
+  int A_entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type A = create_matrix(2, 3, A_entries);
+  int B_entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type B = create_matrix(3, 2, B_entries);
+  assert(!matrices_equal(A, B));
+  cout << __func__ << " test passed\n";
+}
+
 void TestAddMatrices2by3() {
   int A_entries[] = {1, 2, 3, 4, 5, 6};
   matrix_type A = create_matrix(2, 3, A_entries);
@@ -89,6 +107,44 @@ void TestAddMatrices2by3() {
   cout << __func__ << " test passed\n";
 }
 
+void TestMultiplyMatrices2by3And3by2() {
+  int A_entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type A = create_matrix(2, 3, A_entries);
+  int B_entries[] = {1, 2, 3, 3, 2, 1};
+  matrix_type B = create_matrix(3, 2, B_entries);
+  matrix_type C = multiply_matrices(A, B);
+  assert(C.m == 2);
+  assert(C.n == 2);
+  assert(C.mat[0][0] == 13);
+  assert(C.mat[0][1] == 11);
+  assert(C.mat[1][0] == 31);
+  assert(C.mat[1][1] == 29);
+  cout << __func__ << " test passed\n";
+}
+
+// (A+B)*C = A*C + B*C
+void TestMultiplyMatricesAddThenMultiply() {
+  clock_t start, end;
+  double cpu_time_used;
+  start = clock();
+
+  matrix_type A = create_random_matrix(MAX_MATRIX_SIZE, MAX_MATRIX_SIZE, -1, 1);
+  matrix_type B = create_random_matrix(MAX_MATRIX_SIZE, MAX_MATRIX_SIZE, -1, 1);
+  matrix_type C = create_random_matrix(MAX_MATRIX_SIZE, MAX_MATRIX_SIZE, -1, 1);
+  matrix_type A_plus_B = add_matrices(A, B);
+  matrix_type result1 = multiply_matrices(A_plus_B, C);
+
+  matrix_type AC = multiply_matrices(A, C);
+  matrix_type BC = multiply_matrices(B, C);
+  matrix_type result2 = add_matrices(AC, BC);
+
+  assert(matrices_equal(result1, result2));
+  cout << __func__ << " test passed\n";
+  end = clock();
+  cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+  printf("time used (sec): %.2lf\n", cpu_time_used);
+}
+
 int main(int argc, char** argv) {
 	TestCreateMatrix1by1();
 	TestCreateMatrix2by3();
@@ -96,7 +152,13 @@ int main(int argc, char** argv) {
 	TestCreateMatrixSizeExceeded();
 	TestCreateMatrixLargeDimension();
 
+  TestMatricesEqual2by3();
+  TestMatricesEqualDimensionNotMatch();
+
   TestAddMatrices2by3();
+
+  TestMultiplyMatrices2by3And3by2();
+  TestMultiplyMatricesAddThenMultiply();
 
 	return 0;
 }

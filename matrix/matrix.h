@@ -48,6 +48,11 @@ double d = det(a);
 
 matrix_type create_matrix(int num_row, int num_col, int* entries);
 
+
+// Create a matrix of size num_row * num_col, where each entry is a random element
+// in [lower_bound, upper_bound].
+matrix_type create_random_matrix(int num_row, int num_col, int lower_bound, int upper_bound);
+
 // Free a matrix ...
 void free_matrix(matrix_type a);
 
@@ -61,10 +66,13 @@ void print_matrix(matrix_type m);
 // If their dimensions do not match, print an error message.
 // Example use case:
 //   c = add_matrices(a, b);
-//   c = add_matrices(c, c);
+//   d = add_matrices(c, c);
 matrix_type add_matrices(matrix_type m1, matrix_type m2);
 
-void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result);
+matrix_type multiply_matrices(matrix_type m1, matrix_type m2);
+
+// Return true if two matrices are equal (by value).
+bool matrices_equal(matrix_type m1, matrix_type m2);
 
 #endif
 

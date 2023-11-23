@@ -3,7 +3,7 @@
 
 #include "matrix.h"
 
-#define DEBUG
+// #define DEBUG
 
 /*
 matrix_type a, b;
@@ -69,6 +69,17 @@ matrix_type create_matrix(int num_row, int num_col, int* entries) {
   return result;
 }
 
+matrix_type create_random_matrix(int num_row, int num_col, int lower_bound, int upper_bound) {
+  matrix_type result = create_matrix(num_row, num_col, NULL);
+  int len = upper_bound - lower_bound + 1;
+  for (int i = 0; i < num_row; i ++) {
+    for (int j = 0; j < num_col; j ++) {
+      result.mat[i][j] = rand() % len + lower_bound;
+    }
+  }
+  return result;
+}
+
 void free_matrix(matrix_type a) {
   int i;
   for (i = 0; i < a.m; i++) {
@@ -92,7 +103,7 @@ void print_matrix(matrix_type m) {
 matrix_type add_matrices(matrix_type m1, matrix_type m2) {
   matrix_type result = create_matrix(m1.m, m1.n, NULL);
   if (m1.m != m2.m || m1.n != m2.n) {
-    printf("ERR: the sizes of m1 and m2 do not match.");
+    printf("ERR: the sizes of m1 and m2 do not match.\n");
     return result;
   }
   for (int i = 0; i < m1.m; i++) {
@@ -103,9 +114,13 @@ matrix_type add_matrices(matrix_type m1, matrix_type m2) {
   return result;
 }
 
-void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result) {
+matrix_type multiply_matrices(matrix_type m1, matrix_type m2) {
+  matrix_type result = create_matrix(m1.m, m2.n, NULL);
+  if (m1.n != m2.m) {
+    printf("ERR: m1.n(%d) != m2.m(%d).\n", m1.n, m2.m);
+    return result;
+  }
   int temp = 0;
-
   for (int i = 0; i < m1.m; i++) {
     for (int j = 0; j < m2.n; j++) {
       for (int k = 0; k < m1.n; k++) {
@@ -116,5 +131,21 @@ void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type
       temp = 0;
     }
   }
+  return result;
 }
+
+bool matrices_equal(matrix_type m1, matrix_type m2) {
+  if (m1.m != m2.m || m1.n != m2.n) {
+    return false;
+  }
+  for (int i = 0; i < m1.m; i++) {
+    for (int j = 0; j < m1.n; j++) {
+      if (m1.mat[i][j] != m2.mat[i][j]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 
