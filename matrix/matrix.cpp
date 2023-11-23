@@ -112,3 +112,49 @@ void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type
   }
 }
 
+void determinant(const matrix_type& m, long long& result) {
+  if (m.m != m.n) {
+    return;
+  }
+
+  if (m.m == 1) {
+    result = m.mat[0][0];
+    return;
+  }
+
+  if (m.m == 2) {
+    result = m.mat[0][0] * m.mat[1][1] - m.mat[0][1] * m.mat[1][0];
+    return;
+  }
+
+  matrix_type temp;
+  set_null_matrix(&temp);
+  temp = create_matrix(m.m - 1, m.n - 1, NULL);
+
+  int i, j, k, l;
+  int sign = 1;
+  int sub_i, sub_j;
+  long long sub_det = 0;
+
+  for (i = 0; i < m.m; i++) {
+    sub_i = 0;
+    for (j = 0; j < m.n; j++) {
+      sub_j = 0;
+      for (k = 0; k < m.m; k++) {
+        if (k == i) continue;
+        for (l = 0; l < m.n; l++) {
+          if (l == j) continue;
+          temp.mat[sub_i][sub_j] = m.mat[k][l];
+          sub_j++;
+        }
+        sub_i++;
+      }
+
+      determinant(temp, sub_det);
+      result += sign * m.mat[i][j] * sub_det;
+      sign *= -1;
+    }
+  }
+
+  free_matrix(temp);
+}
