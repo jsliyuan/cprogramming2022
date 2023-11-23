@@ -121,6 +121,46 @@ void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type
   }
 }
 
+void multiply_matrix_by_scalar(const matrix_type& m, int scalar, matrix_type& result) {
+  if(result.mat == NULL) {
+    return;
+  }
+  if(result.m!=m.m || result.n!=m.n) {
+    result.mat = NULL;
+    return;
+  }
+  for (int i = 0; i < m.m; i++) {
+    for (int j = 0; j < m.n; j++) {
+      result.mat[i][j] = m.mat[i][j] * scalar;
+    }
+  }
+}
+matrix_type multiply_matrix_by_scalar(const matrix_type& m, int scalar) {
+  matrix_type result = create_matrix(m.m, m.n, NULL);
+  multiply_matrix_by_scalar(m, scalar, result);
+  return result;
+}
+
+void transpose_matrix(const matrix_type& m, matrix_type& result) {
+  if(result.mat == NULL) {
+    return;
+  }
+  if(result.m!=m.n || result.n!=m.m) {
+    result.mat = NULL;
+    return;
+  }
+  for (int i = 0; i < m.m; i++) {
+    for (int j = 0; j < m.n; j++) {
+      result.mat[j][i] = m.mat[i][j];
+    }
+  }
+}
+matrix_type transpose_matrix(const matrix_type& m) {
+  matrix_type result = create_matrix(m.n, m.m, NULL);
+  transpose_matrix(m, result);
+  return result;
+}
+
 void determinant(const matrix_type& m, long long& result) {
   if (m.m != m.n) {
     return;
