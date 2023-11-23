@@ -72,12 +72,31 @@ void TestCreateMatrixLargeDimension() {
   cout << __func__ << " test passed\n";
 }
 
+void TestAddMatrices2by3() {
+  int A_entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type A = create_matrix(2, 3, A_entries);
+  int B_entries[] = {1, 0, 1, 0, 2, 2};
+  matrix_type B = create_matrix(2, 3, B_entries);
+  matrix_type C = add_matrices(A, B);
+  assert(C.m == 2);
+  assert(C.n == 3);
+  assert(C.mat[0][0] == 2);
+  assert(C.mat[0][1] == 2);
+  assert(C.mat[0][2] == 4);
+  assert(C.mat[1][0] == 4);
+  assert(C.mat[1][1] == 7);
+  assert(C.mat[1][2] == 8);
+  cout << __func__ << " test passed\n";
+}
+
 int main(int argc, char** argv) {
 	TestCreateMatrix1by1();
 	TestCreateMatrix2by3();
 	TestCreateMatrix2by3Null();
 	TestCreateMatrixSizeExceeded();
 	TestCreateMatrixLargeDimension();
+
+  TestAddMatrices2by3();
 
 	return 0;
 }
