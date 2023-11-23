@@ -80,6 +80,7 @@ void TestDetertminant() {
   int entries2[] = {1, 3, 4, 5, 2, 9, 1, 1, 4};
   matrix_type B = create_matrix(3, 3, entries2);
   det = determinant(B);
+  assert(det == -22);
   cout << __func__ << " test passed\n";
 }
 
