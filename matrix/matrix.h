@@ -65,5 +65,7 @@ void add_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& res
 
 void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result);
 
+bool trace(const matrix_type& m, int* tr);
+
 #endif
 

@@ -112,3 +112,15 @@ void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type
   }
 }
 
+bool trace(const matrix_type& m, int* tr) {
+  if (m.m != m.n) {
+    return false;
+  }
+
+  (*tr) = 0;
+  for (int i = 0; i < m.m; i ++) {
+    (*tr) += m.mat[i][i];
+  }
+
+  return true;
+}
