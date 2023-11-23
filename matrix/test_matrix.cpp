@@ -72,12 +72,42 @@ void TestCreateMatrixLargeDimension() {
   cout << __func__ << " test passed\n";
 }
 
+void TestMultiplyMatrixByScalar() {
+  int entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type A = create_matrix(2, 3, entries);
+  matrix_type B = multiply_matrix_by_scalar(A, 2);
+  assert(B.m == 2);
+  assert(B.n == 3);
+  for (int i = 0; i < 2; i ++) {
+  	for (int j = 0; j < 3; j ++) {
+  	  assert(B.mat[i][j] == (i*3 + j + 1)*2);
+    }
+  }
+  cout << __func__ << " test passed\n";
+}
+
+void TestTransposeMatrix() {
+  int entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type A = create_matrix(2, 3, entries);
+  matrix_type B = transpose_matrix(A);
+  assert(B.m == 3);
+  assert(B.n == 2);
+  for (int i = 0; i < 3; i ++) {
+  	for (int j = 0; j < 2; j ++) {
+  	  assert(B.mat[i][j] == entries[j*3 + i]);
+    }
+  }
+  cout << __func__ << " test passed\n";
+}
+
 int main(int argc, char** argv) {
 	TestCreateMatrix1by1();
 	TestCreateMatrix2by3();
 	TestCreateMatrix2by3Null();
 	TestCreateMatrixSizeExceeded();
 	TestCreateMatrixLargeDimension();
+  TestMultiplyMatrixByScalar();
+  TestTransposeMatrix();
 
 	return 0;
 }

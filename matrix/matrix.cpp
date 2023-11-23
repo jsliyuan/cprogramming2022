@@ -126,6 +126,11 @@ void multiply_matrix_by_scalar(const matrix_type& m, int scalar, matrix_type& re
     }
   }
 }
+matrix_type multiply_matrix_by_scalar(const matrix_type& m, int scalar) {
+  matrix_type result = create_matrix(m.m, m.n, NULL);
+  multiply_matrix_by_scalar(m, scalar, result);
+  return result;
+}
 
 void transpose_matrix(const matrix_type& m, matrix_type& result) {
   if(result.mat == NULL) {
@@ -140,4 +145,9 @@ void transpose_matrix(const matrix_type& m, matrix_type& result) {
       result.mat[j][i] = m.mat[i][j];
     }
   }
+}
+matrix_type transpose_matrix(const matrix_type& m) {
+  matrix_type result = create_matrix(m.n, m.m, NULL);
+  transpose_matrix(m, result);
+  return result;
 }
