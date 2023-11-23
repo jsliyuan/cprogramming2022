@@ -113,6 +113,13 @@ void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type
 }
 
 void multiply_matrix_by_scalar(const matrix_type& m, int scalar, matrix_type& result) {
+  if(result.mat == NULL) {
+    return;
+  }
+  if(result.m!=m.m || result.n!=m.n) {
+    result.mat = NULL;
+    return;
+  }
   for (int i = 0; i < m.m; i++) {
     for (int j = 0; j < m.n; j++) {
       result.mat[i][j] = m.mat[i][j] * scalar;
@@ -121,6 +128,13 @@ void multiply_matrix_by_scalar(const matrix_type& m, int scalar, matrix_type& re
 }
 
 void transpose_matrix(const matrix_type& m, matrix_type& result) {
+  if(result.mat == NULL) {
+    return;
+  }
+  if(result.m!=m.n || result.n!=m.m) {
+    result.mat = NULL;
+    return;
+  }
   for (int i = 0; i < m.m; i++) {
     for (int j = 0; j < m.n; j++) {
       result.mat[j][i] = m.mat[i][j];
