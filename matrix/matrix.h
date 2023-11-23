@@ -65,5 +65,9 @@ void add_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& res
 
 void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result);
 
+void multiply_matrix_by_scalar(const matrix_type& m, int scalar, matrix_type& result);
+
+void transpose_matrix(const matrix_type& m, matrix_type& result);
+
 #endif
 
