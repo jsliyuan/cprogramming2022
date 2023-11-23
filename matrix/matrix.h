@@ -9,15 +9,11 @@
 // sizeof(matrix_type) = 4*2 + 8 = 16;
 
 struct matrix_type {
-
  int** mat;
 
  // m - # rows
-
  // n - # columns
-
  int m, n;
-
 };
 
 /*
@@ -61,15 +57,24 @@ void set_null_matrix(matrix_type* a);
 
 void print_matrix(matrix_type m);
 
-void add_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result);
+// Add two matrices, and return their sum.
+// If their dimensions do not match, print an error message.
+// Example use case:
+//   c = add_matrices(a, b);
+//   c = add_matrices(c, c);
+matrix_type add_matrices(matrix_type m1, matrix_type m2);
 
 void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result);
+
 
 void multiply_matrix_by_scalar(const matrix_type& m, int scalar, matrix_type& result);
 matrix_type multiply_matrix_by_scalar(const matrix_type& m, int scalar);
 
 void transpose_matrix(const matrix_type& m, matrix_type& result);
 matrix_type transpose_matrix(const matrix_type& m);
+
+void determinant(const matrix_type& m, long long& result);
+long long determinant(const matrix_type& m);
 
 #endif
 

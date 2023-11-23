@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <algorithm>
 
 #include "matrix.h"
 
 #define DEBUG
+
+using std::swap;
 
 /*
 matrix_type a, b;
@@ -89,12 +92,18 @@ void print_matrix(matrix_type m) {
   }
 }
 
-void add_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result) {
+matrix_type add_matrices(matrix_type m1, matrix_type m2) {
+  matrix_type result = create_matrix(m1.m, m1.n, NULL);
+  if (m1.m != m2.m || m1.n != m2.n) {
+    printf("ERR: the sizes of m1 and m2 do not match.");
+    return result;
+  }
   for (int i = 0; i < m1.m; i++) {
     for (int j = 0; j < m1.n; j++) {
       result.mat[i][j] = m1.mat[i][j] + m2.mat[i][j];
     }
   }
+  return result;
 }
 
 void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result) {
@@ -149,5 +158,51 @@ void transpose_matrix(const matrix_type& m, matrix_type& result) {
 matrix_type transpose_matrix(const matrix_type& m) {
   matrix_type result = create_matrix(m.n, m.m, NULL);
   transpose_matrix(m, result);
+  return result;
+}
+
+void determinant(const matrix_type& m, long long& result) {
+  if (m.m != m.n) {
+    return;
+  }
+
+  if (m.m == 1) {
+    result = m.mat[0][0];
+    return;
+  }
+
+  if (m.m == 2) {
+    result = m.mat[0][0] * m.mat[1][1] - m.mat[0][1] * m.mat[1][0];
+    return;
+  }
+
+  //use Gaussian elimination to reduce the matrix to upper triangular form
+  matrix_type temp = create_matrix(m.m, m.n, NULL);
+  for (int i = 0; i < m.m; i++) {
+    for (int j = 0; j < m.n; j++) {
+      temp.mat[i][j] = m.mat[i][j];
+    }
+  }
+  long long res=1;
+  int w=1;
+	for(int i=0;i<m.m;i++) { 
+		for(int j=i+1;j<m.m;++j) {
+    	while(temp.mat[i][i]) {
+     	  int div=temp.mat[j][i]/temp.mat[i][i];
+        for(int k=i;k<=m.m;++k) {
+        	temp.mat[j][k]=temp.mat[j][k]-1ll*div*temp.mat[i][k];
+        }
+        swap(temp.mat[i],temp.mat[j]);w=-w;
+    	}
+    	swap(temp.mat[i],temp.mat[j]);w=-w;
+		}
+	}
+	for(int i=0;i<m.m;i++)res=1ll*temp.mat[i][i]*res;
+	result=1ll*w*res;
+  free_matrix(temp);
+}
+long long determinant(const matrix_type& m) {
+  long long result = 0;
+  determinant(m, result);
   return result;
 }
