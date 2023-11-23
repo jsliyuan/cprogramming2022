@@ -74,5 +74,15 @@ matrix_type multiply_matrices(matrix_type m1, matrix_type m2);
 // Return true if two matrices are equal (by value).
 bool matrices_equal(matrix_type m1, matrix_type m2);
 
+
+void multiply_matrix_by_scalar(const matrix_type& m, int scalar, matrix_type& result);
+matrix_type multiply_matrix_by_scalar(const matrix_type& m, int scalar);
+
+void transpose_matrix(const matrix_type& m, matrix_type& result);
+matrix_type transpose_matrix(const matrix_type& m);
+
+void determinant(const matrix_type& m, long long& result);
+long long determinant(const matrix_type& m);
+
 #endif
 

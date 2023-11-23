@@ -87,6 +87,45 @@ void TestMatricesEqualDimensionNotMatch() {
   int B_entries[] = {1, 2, 3, 4, 5, 6};
   matrix_type B = create_matrix(3, 2, B_entries);
   assert(!matrices_equal(A, B));
+}
+
+void TestMultiplyMatrixByScalar() {
+  int entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type A = create_matrix(2, 3, entries);
+  matrix_type B = multiply_matrix_by_scalar(A, 2);
+  assert(B.m == 2);
+  assert(B.n == 3);
+  for (int i = 0; i < 2; i ++) {
+  	for (int j = 0; j < 3; j ++) {
+  	  assert(B.mat[i][j] == (i*3 + j + 1)*2);
+    }
+  }
+  cout << __func__ << " test passed\n";
+}
+
+void TestTransposeMatrix() {
+  int entries[] = {1, 2, 3, 4, 5, 6};
+  matrix_type A = create_matrix(2, 3, entries);
+  matrix_type B = transpose_matrix(A);
+  assert(B.m == 3);
+  assert(B.n == 2);
+  for (int i = 0; i < 3; i ++) {
+  	for (int j = 0; j < 2; j ++) {
+  	  assert(B.mat[i][j] == entries[j*3 + i]);
+    }
+  }
+  cout << __func__ << " test passed\n";
+}
+
+void TestDetertminant() {
+  int entries[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  matrix_type A = create_matrix(3, 3, entries);
+  double det = determinant(A);
+  assert(det == 0);
+  int entries2[] = {1, 3, 4, 5, 2, 9, 1, 1, 4};
+  matrix_type B = create_matrix(3, 3, entries2);
+  det = determinant(B);
+  assert(det == -22);
   cout << __func__ << " test passed\n";
 }
 
@@ -155,6 +194,9 @@ int main(int argc, char** argv) {
   TestMatricesEqual2by3();
   TestMatricesEqualDimensionNotMatch();
 
+  TestMultiplyMatrixByScalar();
+  TestTransposeMatrix();
+  TestDetertminant();
   TestAddMatrices2by3();
 
   TestMultiplyMatrices2by3And3by2();
