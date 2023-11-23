@@ -112,3 +112,14 @@ void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type
   }
 }
 
+matrix_type eye(int n) {
+  matrix_type ret = create_matrix(n, n, NULL);
+  for (int i = 0; i < n; i++) {
+    ret.mat[i][i] = 1;
+  }
+  return ret;
+}
+
+matrix_type zero(int n) {
+  return create_matrix(n, n, NULL);
+}

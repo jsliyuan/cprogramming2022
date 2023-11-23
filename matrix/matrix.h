@@ -65,5 +65,9 @@ void add_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& res
 
 void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result);
 
+matrix_type eye(int n);
+
+matrix_type zero(int n);
+
 #endif
 
