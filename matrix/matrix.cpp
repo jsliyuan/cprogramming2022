@@ -90,25 +90,38 @@ void print_matrix(matrix_type m) {
 }
 
 void add_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result) {
-  for (int i = 0; i < m1.m; i++) {
-    for (int j = 0; j < m1.n; j++) {
-      result.mat[i][j] = m1.mat[i][j] + m2.mat[i][j];
+    if (m1.m != m2.m || m1.n != m2.n) {
+        result.mat = NULL;
+        return;
     }
-  }
+    result.m = m1.m;
+    result.n = m1.n;
+
+    result = create_matrix(result.m, result.n, NULL);
+    for (int i = 0; i < m1.m; i++) {
+        for (int j = 0; j < m1.n; j++) {
+            result.mat[i][j] = m1.mat[i][j] + m2.mat[i][j];
+        }
+    }
 }
 
 void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result) {
-  int temp = 0;
-
-  for (int i = 0; i < m1.m; i++) {
-    for (int j = 0; j < m2.n; j++) {
-      for (int k = 0; k < m1.n; k++) {
-        temp += m1.mat[i][k] * m2.mat[k][j];
-      }
-
-      result.mat[i][j] = temp;
-      temp = 0;
+    if (m1.n != m2.m) {
+        result.mat = NULL;
+        return;
     }
-  }
-}
+    result.m = m1.m;
+    result.n = m2.n;
 
+    result = create_matrix(result.m, result.n, NULL);
+
+    for (int i = 0; i < m1.m; i++) {
+        for (int j = 0; j < m2.n; j++) {
+            int temp = 0;
+            for (int k = 0; k < m1.n; k++) {
+                temp += m1.mat[i][k] * m2.mat[k][j];
+            }
+            result.mat[i][j] = temp;
+        }
+    }
+}
