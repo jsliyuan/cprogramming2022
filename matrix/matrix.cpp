@@ -92,12 +92,18 @@ void print_matrix(matrix_type m) {
   }
 }
 
-void add_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result) {
+matrix_type add_matrices(matrix_type m1, matrix_type m2) {
+  matrix_type result = create_matrix(m1.m, m1.n, NULL);
+  if (m1.m != m2.m || m1.n != m2.n) {
+    printf("ERR: the sizes of m1 and m2 do not match.");
+    return result;
+  }
   for (int i = 0; i < m1.m; i++) {
     for (int j = 0; j < m1.n; j++) {
       result.mat[i][j] = m1.mat[i][j] + m2.mat[i][j];
     }
   }
+  return result;
 }
 
 void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result) {
