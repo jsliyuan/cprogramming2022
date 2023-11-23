@@ -72,12 +72,24 @@ void TestCreateMatrixLargeDimension() {
   cout << __func__ << " test passed\n";
 }
 
+void TestDetertminant() {
+  int entries[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  matrix_type A = create_matrix(3, 3, entries);
+  double det = determinant(A);
+  assert(det == 0);
+  int entries2[] = {1, 3, 4, 5, 2, 9, 1, 1, 4};
+  matrix_type B = create_matrix(3, 3, entries2);
+  det = determinant(B);
+  cout << __func__ << " test passed\n";
+}
+
 int main(int argc, char** argv) {
 	TestCreateMatrix1by1();
 	TestCreateMatrix2by3();
 	TestCreateMatrix2by3Null();
 	TestCreateMatrixSizeExceeded();
 	TestCreateMatrixLargeDimension();
+  TestDetertminant();
 
 	return 0;
 }

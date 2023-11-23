@@ -66,6 +66,7 @@ void add_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& res
 void multiply_matrices(const matrix_type& m1, const matrix_type& m2, matrix_type& result);
 
 void determinant(const matrix_type& m, long long& result);
+long long determinant(const matrix_type& m);
 
 #endif
 

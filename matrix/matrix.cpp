@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <algorithm>
 
 #include "matrix.h"
 
 #define DEBUG
+
+using std::swap;
 
 /*
 matrix_type a, b;
@@ -127,34 +130,33 @@ void determinant(const matrix_type& m, long long& result) {
     return;
   }
 
-  matrix_type temp;
-  set_null_matrix(&temp);
-  temp = create_matrix(m.m - 1, m.n - 1, NULL);
-
-  int i, j, k, l;
-  int sign = 1;
-  int sub_i, sub_j;
-  long long sub_det = 0;
-
-  for (i = 0; i < m.m; i++) {
-    sub_i = 0;
-    for (j = 0; j < m.n; j++) {
-      sub_j = 0;
-      for (k = 0; k < m.m; k++) {
-        if (k == i) continue;
-        for (l = 0; l < m.n; l++) {
-          if (l == j) continue;
-          temp.mat[sub_i][sub_j] = m.mat[k][l];
-          sub_j++;
-        }
-        sub_i++;
-      }
-
-      determinant(temp, sub_det);
-      result += sign * m.mat[i][j] * sub_det;
-      sign *= -1;
+  //use Gaussian elimination to reduce the matrix to upper triangular form
+  matrix_type temp = create_matrix(m.m, m.n, NULL);
+  for (int i = 0; i < m.m; i++) {
+    for (int j = 0; j < m.n; j++) {
+      temp.mat[i][j] = m.mat[i][j];
     }
   }
-
+  long long res=1;
+  int w=1;
+	for(int i=0;i<m.m;i++) { 
+		for(int j=i+1;j<m.m;++j) {
+    	while(temp.mat[i][i]) {
+     	  int div=temp.mat[j][i]/temp.mat[i][i];
+        for(int k=i;k<=m.m;++k) {
+        	temp.mat[j][k]=temp.mat[j][k]-1ll*div*temp.mat[i][k];
+        }
+        swap(temp.mat[i],temp.mat[j]);w=-w;
+    	}
+    	swap(temp.mat[i],temp.mat[j]);w=-w;
+		}
+	}
+	for(int i=0;i<m.m;i++)res=1ll*temp.mat[i][i]*res;
+	result=1ll*w*res;
   free_matrix(temp);
+}
+long long determinant(const matrix_type& m) {
+  long long result = 0;
+  determinant(m, result);
+  return result;
 }
