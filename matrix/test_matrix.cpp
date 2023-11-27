@@ -161,6 +161,41 @@ void TestMultiplyMatrices2by3And3by2() {
   cout << __func__ << " test passed\n";
 }
 
+void TestCreateIdentityMatrix() {
+  matrix_type I = identity_matrix(3);
+  assert(I.m == 3);
+  assert(I.n == 3);
+  assert(I.mat[0][0] == 1);
+  assert(I.mat[0][1] == 0);
+  assert(I.mat[0][2] == 0);
+  assert(I.mat[1][0] == 0);
+  assert(I.mat[1][1] == 1);
+  assert(I.mat[1][2] == 0);
+  assert(I.mat[2][0] == 0);
+  assert(I.mat[2][1] == 0);
+  assert(I.mat[2][2] == 1);
+  cout << __func__ << " test passed\n";
+}
+
+void TestCreateZeroMatrix() {
+  matrix_type Z = zero_matrix(3, 4);
+  assert(Z.m == 3);
+  assert(Z.n == 4);
+  assert(Z.mat[0][0] == 0);
+  assert(Z.mat[0][1] == 0);
+  assert(Z.mat[0][2] == 0);
+  assert(Z.mat[0][3] == 0);
+  assert(Z.mat[1][0] == 0);
+  assert(Z.mat[1][1] == 0);
+  assert(Z.mat[1][2] == 0);
+  assert(Z.mat[1][3] == 0);
+  assert(Z.mat[2][0] == 0);
+  assert(Z.mat[2][1] == 0);
+  assert(Z.mat[2][2] == 0);
+  assert(Z.mat[2][3] == 0);
+  cout << __func__ << " test passed\n";
+}
+
 // (A+B)*C = A*C + B*C
 void TestMultiplyMatricesAddThenMultiply() {
   clock_t start, end;
@@ -201,6 +236,9 @@ int main(int argc, char** argv) {
 
   TestMultiplyMatrices2by3And3by2();
   TestMultiplyMatricesAddThenMultiply();
+
+  TestCreateIdentityMatrix();
+  TestCreateZeroMatrix();
 
 	return 0;
 }

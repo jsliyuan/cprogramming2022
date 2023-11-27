@@ -87,6 +87,7 @@ int64_t determinant(const matrix_type& m);
 
 matrix_type identity_matrix(int size);
 
+matrix_type zero_matrix(int m, int n);
 matrix_type zero_matrix(int size);
 
 #endif

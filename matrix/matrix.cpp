@@ -245,8 +245,11 @@ matrix_type identity_matrix(int n) {
   return result;
 }
 
-matrix_type zero_matrix(int n) {
-  matrix_type result = create_matrix(n, n, NULL);
+matrix_type zero_matrix(int n,int m) {
+  matrix_type result = create_matrix(n, m, NULL);
   return result;
+}
+matrix_type zero_matrix(int n) {
+  return zero_matrix(n, n);
 }
 
