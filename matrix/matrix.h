@@ -85,5 +85,9 @@ matrix_type transpose_matrix(const matrix_type& m);
 void determinant(const matrix_type& m, int64_t& result);
 int64_t determinant(const matrix_type& m);
 
+matrix_type identity_matrix(int size);
+
+matrix_type zero_matrix(int size);
+
 #endif
 

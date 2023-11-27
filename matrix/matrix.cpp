@@ -236,3 +236,17 @@ int64_t determinant(const matrix_type& m) {
   determinant(m, result);
   return result;
 }
+
+matrix_type identity_matrix(int n) {
+  matrix_type result = create_matrix(n, n, NULL);
+  for (int i = 0; i < n; i++) {
+    result.mat[i][i] = 1;
+  }
+  return result;
+}
+
+matrix_type zero_matrix(int n) {
+  matrix_type result = create_matrix(n, n, NULL);
+  return result;
+}
+
