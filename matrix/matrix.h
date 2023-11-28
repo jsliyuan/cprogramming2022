@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #define MAX_MATRIX_SIZE 1000
 
@@ -81,8 +82,13 @@ matrix_type multiply_matrix_by_scalar(const matrix_type& m, int scalar);
 void transpose_matrix(const matrix_type& m, matrix_type& result);
 matrix_type transpose_matrix(const matrix_type& m);
 
-void determinant(const matrix_type& m, long long& result);
-long long determinant(const matrix_type& m);
+void determinant(const matrix_type& m, int64_t& result);
+int64_t determinant(const matrix_type& m);
+
+matrix_type identity_matrix(int size);
+
+matrix_type zero_matrix(int m, int n);
+matrix_type zero_matrix(int size);
 
 #endif
 

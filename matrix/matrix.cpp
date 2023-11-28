@@ -191,7 +191,7 @@ matrix_type transpose_matrix(const matrix_type& m) {
   return result;
 }
 
-void determinant(const matrix_type& m, long long& result) {
+void determinant(const matrix_type& m, int64_t& result) {
   if (m.m != m.n) {
     return;
   }
@@ -213,7 +213,7 @@ void determinant(const matrix_type& m, long long& result) {
       temp.mat[i][j] = m.mat[i][j];
     }
   }
-  long long res=1;
+  int64_t res=1;
   int w=1;
 	for(int i=0;i<m.m;i++) { 
 		for(int j=i+1;j<m.m;++j) {
@@ -231,8 +231,25 @@ void determinant(const matrix_type& m, long long& result) {
 	result=1ll*w*res;
   free_matrix(temp);
 }
-long long determinant(const matrix_type& m) {
-  long long result = 0;
+int64_t determinant(const matrix_type& m) {
+  int64_t result = 0;
   determinant(m, result);
   return result;
 }
+
+matrix_type identity_matrix(int n) {
+  matrix_type result = create_matrix(n, n, NULL);
+  for (int i = 0; i < n; i++) {
+    result.mat[i][i] = 1;
+  }
+  return result;
+}
+
+matrix_type zero_matrix(int m,int n) {
+  matrix_type result = create_matrix(m, n, NULL);
+  return result;
+}
+matrix_type zero_matrix(int n) {
+  return zero_matrix(n, n);
+}
+
