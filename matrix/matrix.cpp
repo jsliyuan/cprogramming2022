@@ -253,3 +253,15 @@ matrix_type zero_matrix(int n) {
   return zero_matrix(n, n);
 }
 
+bool trace(const matrix_type& m, int* tr) {
+  if (m.m != m.n) {
+    return false;
+  }
+
+  (*tr) = 0;
+  for (int i = 0; i < m.m; i ++) {
+    (*tr) += m.mat[i][i];
+  }
+
+  return true;
+}
